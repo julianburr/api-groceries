@@ -21,4 +21,12 @@ class Item extends Model
      * @var array
      */
     protected $hidden = [];
+
+    public function category () {
+        $this->belongsToOne('App\Category');
+    }
+
+    public function lists () {
+        $this->belongsToManu('App\ItemList', 'list_item');
+    }
 }

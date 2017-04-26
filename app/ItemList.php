@@ -21,4 +21,16 @@ class ItemList extends Model
      * @var array
      */
     protected $hidden = [];
+
+    public function owner () {
+        return $this->belongsTo('App\User', 'owner');
+    }
+
+    public function items () {
+        return $this->belongsToMany('App\Item', 'list_item');
+    }
+
+    public function users () {
+        return $this->belongsToMany('App\User', 'list_user');
+    }
 }
