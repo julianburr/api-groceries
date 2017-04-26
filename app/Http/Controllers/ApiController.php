@@ -14,34 +14,45 @@ class ApiController extends BaseController
 
     protected $statusCode = 200;
 
-    public function getStatusCode () {
-      return $this->statusCode;
+    public function getStatusCode()
+    {
+        return $this->statusCode;
     }
 
-    public function setStatusCode ($code) {
-      $this->statusCode = $code;
-      return $this;
+    public function setStatusCode($code)
+    {
+        $this->statusCode = $code;
+        return $this;
     }
 
-    public function respond ($data, $headers = []) {
-      return Response::json($data, $this->getStatusCode(), $headers);
+    public function respond($data)
+    {
+        return Response::json($data, $this->getStatusCode());
     }
 
-    public function respondWithData ($data) {
-      return $this->setStatusCode(200)->respond([
+    public function respondWithData($data)
+    {
+        return $this->setStatusCode(200)->respond([
         'data' => $data
       ]);
     }
 
-    public function respondWithError ($message) {
-      return $this->setStatusCode(404)->respond([
+    public function respondWithError($message)
+    {
+        return $this->respond([
         'error' => [
           'message' => $message
         ]
       ]);
     }
 
-    public function respondNotFound ($message = 'Resource not found') {
-      return $this->respondWithError($message);
+    public function respondNotFound($message = 'Resource not found')
+    {
+        return $this->setStatusCode(404)->respondWithError($message);
+    }
+
+    public function respondInternalError($message = 'Internal Error')
+    {
+        return $this->setStatusCode(500)->respondWithError($message);
     }
 }

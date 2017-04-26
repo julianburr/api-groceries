@@ -6,7 +6,6 @@ use App\ItemList;
 use App\User;
 use Illuminate\Database\Seeder;
 
-
 class DatabaseSeeder extends Seeder
 {
     /**
@@ -16,8 +15,8 @@ class DatabaseSeeder extends Seeder
      */
     public function run()
     {
-        // DB::table('list_item')->delete();
-        // DB::table('list_user')->delete();
+        DB::table('list_item')->delete();
+        DB::table('list_user')->delete();
 
         User::truncate();
         ItemList::truncate();

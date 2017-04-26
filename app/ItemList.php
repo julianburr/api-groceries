@@ -22,15 +22,18 @@ class ItemList extends Model
      */
     protected $hidden = [];
 
-    public function owner () {
+    public function owner()
+    {
         return $this->belongsTo('App\User', 'owner');
     }
 
-    public function items () {
+    public function items()
+    {
         return $this->belongsToMany('App\Item', 'list_item');
     }
 
-    public function users () {
+    public function users()
+    {
         return $this->belongsToMany('App\User', 'list_user');
     }
 }

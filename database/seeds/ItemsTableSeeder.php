@@ -18,14 +18,14 @@ class ItemsTableSeeder extends Seeder
         $faker = Faker::create();
 
         foreach (range(1, 100) as $index) {
-          $user = User::inRandomOrder()->first();
-          $category = Category::inRandomOrder()->first();
+            $user = User::inRandomOrder()->first();
+            $category = Category::inRandomOrder()->first();
 
-          Item::create([
-            "name" => $faker->word,
-            "category_id" => $category->id,
-            "created_by" => $user->id
-          ]);
+            Item::create([
+                "name" => $faker->word,
+                "category_id" => $category->id,
+                "created_by" => $user->id
+            ]);
         }
     }
 }

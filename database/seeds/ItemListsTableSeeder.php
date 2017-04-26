@@ -17,13 +17,13 @@ class ItemListsTableSeeder extends Seeder
         $faker = Faker::create();
 
         foreach (range(1, 10) as $index) {
-          $user = User::inRandomOrder()->first();
+            $user = User::inRandomOrder()->first();
 
-          ItemList::create([
-            "name" => $faker->word,
-            "desc" => $faker->paragraph,
-            "owner" => $user->id
-          ]);
+            ItemList::create([
+                "name" => $faker->word,
+                "desc" => $faker->paragraph,
+                "owner" => $user->id
+            ]);
         }
     }
 }

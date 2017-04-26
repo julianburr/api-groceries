@@ -17,11 +17,11 @@ class CategoriesTableSeeder extends Seeder
         $faker = Faker::create();
 
         foreach (range(1, 5) as $index) {
-          $user = User::inRandomOrder()->first();
-          Category::create([
-            "name" => $faker->word,
-            "color" => "#dd21ac",
-          ]);
+            $user = User::inRandomOrder()->first();
+            Category::create([
+                "name" => $faker->word,
+                "color" => "#dd21ac",
+            ]);
         }
     }
 }

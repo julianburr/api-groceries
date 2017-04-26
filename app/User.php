@@ -27,7 +27,8 @@ class User extends Authenticatable
         'password', 'remember_token',
     ];
 
-    public function lists () {
+    public function lists()
+    {
         return $this->belongsToMany('App\ItemList', 'list_user');
     }
 }
