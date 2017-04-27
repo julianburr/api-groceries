@@ -16,10 +16,15 @@ class UsersTableSeeder extends Seeder
         $faker = Faker::create();
 
         foreach (range(1, 5) as $index) {
+            $apiToken = str_random(60);
+            while (count(User::where('api_token', '=', $apiToken)->get())) {
+                $apiToken = str_random(60);
+            }
             User::create([
                 "name" => $faker->firstName,
                 "email" => $faker->email,
-                "password" => bcrypt('secret')
+                "password" => bcrypt('secret'),
+                "api_token" => $apiToken
             ]);
         }
     }

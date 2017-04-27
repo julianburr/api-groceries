@@ -33,8 +33,15 @@ class ApiController extends BaseController
     public function respondWithData($data)
     {
         return $this->setStatusCode(200)->respond([
-        'data' => $data
-      ]);
+            'data' => $data
+        ]);
+    }
+
+    public function respondApiToken($token)
+    {
+        return $this->setStatusCode(200)->respond([
+            'token' => $token
+        ]);
     }
 
     public function respondWithError($message)
@@ -54,5 +61,15 @@ class ApiController extends BaseController
     public function respondInternalError($message = 'Internal Error')
     {
         return $this->setStatusCode(500)->respondWithError($message);
+    }
+
+    public function respondUnauthorized($message = 'Unauthorized')
+    {
+        return $this->setStatusCode(401)->respondWithError($message);
+    }
+
+    public function respondInvalidInpit($message = 'Invalid input')
+    {
+        return $this->setStatusCode(422)->respondWithError($message);
     }
 }

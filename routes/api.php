@@ -14,5 +14,11 @@ use Illuminate\Http\Request;
 */
 
 Route::group(['prefix' => 'v1'], function () {
-    Route::resource('users', 'UsersController');
+
+    Route::post('auth', 'UsersController@auth');
+
+    Route::group(['middleware' => 'auth:api'], function () {
+        Route::get('me', 'UsersController@me');
+        // Route::resource('users', 'UsersController');
+    });
 });
