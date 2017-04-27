@@ -24,11 +24,11 @@ class Item extends Model
 
     public function category()
     {
-        $this->belongsToOne('App\Category');
+        return $this->belongsTo('App\Category');
     }
 
     public function lists()
     {
-        $this->belongsToManu('App\ItemList', 'list_item');
+        return $this->belongsToMany('App\ItemList', 'list_item');
     }
 }

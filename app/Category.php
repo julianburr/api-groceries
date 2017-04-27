@@ -21,4 +21,9 @@ class Category extends Model
      * @var array
      */
     protected $hidden = [];
+
+    public function items()
+    {
+        $this->hasManu('App\Item');
+    }
 }

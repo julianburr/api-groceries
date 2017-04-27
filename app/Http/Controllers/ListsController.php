@@ -42,7 +42,7 @@ class ListsController extends ApiController
 
     public function show($id)
     {
-        $list = ItemList::with(['owner', 'users', 'items'])
+        $list = ItemList::with(['owner', 'users', 'items.category'])
             ->find($id)
             ->toArray();
 
