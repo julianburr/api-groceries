@@ -3,6 +3,18 @@ This is the API server for the [rn-groceries](https://github.com/julianburr/rn-g
 
 The API server is kept very basic and built with Laravel.
 
+## Get started
+```bin
+git clone https://github.com/julianburr/api-groceries.git
+cd api-groceries
+
+composer install
+
+# After setting up .env for db connection etc
+php artisan migrate --seed
+php artisan serve
+```
+
 ## Endpoints
 
 All api endpoints are grouped under `api/v1`.
