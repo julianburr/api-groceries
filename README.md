@@ -9,15 +9,15 @@ All api endpoints are grouped under `api/v1`.
 
 ### Auth
 
-`POST /auth`
+`POST /auth`  
 Send email and password to receive a valid user token for further requests
 
 ### Lists
 
-`GET /lists`
+`GET /lists`  
 All lists associated with the current user (using the pivot table `list_user`)
   
-`GET /lists/{id}`
+`GET /lists/{id}`  
 A specific list defined by id for the current user
 
 ## Status Codes
