@@ -19,6 +19,7 @@ Route::group(['prefix' => 'v1'], function () {
 
     Route::group(['middleware' => 'auth:api'], function () {
         Route::get('me', 'UsersController@me');
-        // Route::resource('users', 'UsersController');
+
+        Route::resource('lists', 'ListsController');
     });
 });
