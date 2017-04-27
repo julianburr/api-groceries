@@ -32,34 +32,40 @@ All lists associated with the current user (using the pivot table `list_user`)
   
 `GET /lists/{id}`  
 A specific list defined by id for the current user, including all the lists items and all associated category information with these items.  
-  
-🚧 `GET /lists/{listID}/item/{itemID}` (do I really need this?!)  
-Get detailed item information  
-  
-🚧 `POST /users`  
-Create a new user after successful registration.  
-  
-🚧 `DELETE /users`  
-If a user wants to delete it's account...  
-  
+
 🚧 `POST /lists`  
 Create a new list for the currently active user. Needs the following data passed in as parameters: `name`, `users` (ids of additional users that should be related to this list besides the owner)  
   
-🚧 `POST /items`  
-Create a new item (unrelated to any list). The following fields need to be defined: `name`, `category_id`.  
-  
-🚧 `POST /lists/{id}/items`  
-Add an existing item to the specified list. The following fields need to be defined: `item_id`.  
-
-🚧 `DELERE /lists/{id}/items/{id}`  
-Remove an item from a list.  
-  
 🚧 `PUT /lists/{id}` 
+
+### Items
+  
+🚧 `POST /items`  
+Create a new item (unrelated to any list). The following fields need to be defined: `name`, `category_id`. 
+
+🚧 `PUT /items/{id}`  
+
+### List items
+
+🚧 `GET /lists/{listID}/item/{itemID}` (do I really need this?!)  
+Get detailed item information  
+
+🚧 `POST /lists/{listID}/items/{itemID}`  
+Add an existing item to the specified list.
+
+🚧 `DELETE /lists/{listID}/items/{itemID}`  
+Remove an item from a list.  
+
+### Users
+
+🚧 `POST /users`  
+Create a new user after successful registration.  
+  
+🚧 `DELETE /me`  
+If a user wants to delete it's account. Can only delete a currently authorized user!
   
 🚧 `PUT /me`  
 Change details of the currently logged in user
-  
-🚧 `PUT /items/{id}` 
 
 ## Status Codes
  - `200`: Successful request, the requested data can be found under the data attribute
