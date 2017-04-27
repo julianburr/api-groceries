@@ -29,11 +29,34 @@ class ListsController extends ApiController
             ->all();
 
         // Then get the lists with these ids
-        $lists = ItemList::with(['owner', 'users'])->find($listIds)->toArray();
+        $lists = ItemList::with(['owner', 'users'])
+            ->find($listIds)
+            ->toArray();
+
         if (count($lists)) {
             $lists = $this->listTransformer->transformCollection($lists);
             return $this->respondWithData($lists);
         }
         return $this->respondNotFound('No lists found');
+    }
+
+    public function show($id)
+    {
+        $list = ItemList::with(['owner', 'users', 'items'])
+            ->find($id)
+            ->toArray();
+
+        $userIds = array_map(function ($user) {
+            return $user['id'];
+        }, $list['users']);
+
+        if ($list) {
+            if (in_array(Auth::id(), $userIds)) {
+                $list = $this->listTransformer->transformWithItems($list);
+                return $this->respondWithData($list);
+            }
+            return $this->respondUnauthorized();
+        }
+        return $this->respondNotFound('List not found');
     }
 }
