@@ -44,6 +44,12 @@ class ApiController extends BaseController
         ]);
     }
 
+    public function respondDeleted($deletedIds) {
+        return $this->setStatusCode(200)->respond([
+            'successfully_deleted' => $deletedIds
+        ]);
+    }
+
     public function respondWithError($message)
     {
         return $this->respond([

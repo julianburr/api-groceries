@@ -34,9 +34,13 @@ All lists associated with the current user (using the pivot table `list_user`)
 A specific list defined by id for the current user, including all the lists items and all associated category information with these items.  
 
 `POST /lists`  
-Create a new list for the currently active user. Needs the following data passed in as parameters: `name`, `users` (ids of additional users that should be related to this list besides the owner)  
+Create a new list for the currently active user. Needs the following data passed in as parameters: `name`, `userIds` (ids of additional users that should be related to this list besides the owner)  
   
-`PUT /lists/{id}` 
+`PUT /lists/{id}`  
+Update existing list (same availble parameters as for creating new lists)
+  
+`DELETE /lists/{id}`  
+Delete specific list.
 
 ### Items
   

@@ -80,11 +80,13 @@ class ListsController extends ApiController
         $list->users()->attach(Auth::user());
 
         $userIds = $request->input('userIds');
-        foreach ($userIds as $userId) {
-            if ($userId !== Auth::id()) {
-                $user = User::find($userId);
-                if ($user) {
-                    $list->users()->attach($user);
+        if ($userIds) {
+            foreach ($userIds as $userId) {
+                if ($userId !== Auth::id()) {
+                    $user = User::find($userId);
+                    if ($user) {
+                        $list->users()->attach($user);
+                    }
                 }
             }
         }
@@ -133,5 +135,20 @@ class ListsController extends ApiController
         $list->save();
 
         return $this->show($list->id);
+    }
+
+    public function destroy($id)
+    {
+        $list = ItemList::find($id);
+        if (!$list) {
+            return $this->respondNotFound('List not found');
+        }
+
+        if ($list->owner !== Auth::id()) {
+            return $this->respondUnauthorized();
+        }
+
+        $list->delete();
+        return $this->respondDeleted([$id]);
     }
 }
