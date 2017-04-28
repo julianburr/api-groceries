@@ -68,7 +68,7 @@ class ApiController extends BaseController
         return $this->setStatusCode(401)->respondWithError($message);
     }
 
-    public function respondInvalidInpit($message = 'Invalid input')
+    public function respondInvalidInput($message = 'Invalid input')
     {
         return $this->setStatusCode(422)->respondWithError($message);
     }

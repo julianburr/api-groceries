@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\User;
 use App\ItemList;
 use App\Transformers\ListTransformer;
 use Illuminate\Http\Request;
@@ -58,5 +59,79 @@ class ListsController extends ApiController
             return $this->respondUnauthorized();
         }
         return $this->respondNotFound('List not found');
+    }
+
+    public function store(Request $request)
+    {
+        if (!Auth::id()) {
+            return $this->respondUnauthorized();
+        }
+
+        if (!$request->input('name')) {
+            return $this->respondInvalidInput('Name has to be defined');
+        }
+
+        $list = new ItemList;
+        $list->name = $request->input('name');
+        $list->desc = $request->input('desc');
+        $list->owner = Auth::id();
+        $list->save();
+
+        $list->users()->attach(Auth::user());
+
+        $userIds = $request->input('userIds');
+        foreach ($userIds as $userId) {
+            if ($userId !== Auth::id()) {
+                $user = User::find($userId);
+                if ($user) {
+                    $list->users()->attach($user);
+                }
+            }
+        }
+
+        return $this->show($list->id);
+    }
+
+    public function update($listId, Request $request)
+    {
+        $list = ItemList::with('users')->find($listId);
+        if (!$list) {
+            return $this->respondNotFound('List not found');
+        }
+
+        $userIds = array_map(function ($user) {
+            return $user['id'];
+        }, $list['users']->toArray());
+
+        if (!in_array(Auth::id(), $userIds)) {
+            return $this->respondUnauthorized();
+        }
+
+        if ($request->input('name')) {
+            $list->name = $request->input('name');
+        }
+
+        if ($request->input('desc')) {
+            $list->desc = $request->input('desc');
+        }
+
+        if ($request->input('userIds')) {
+            $oldIds = $userIds;
+            foreach ($oldIds as $oldId) {
+                if (!in_array($oldId, $request->input('userIds')) && $oldId !== Auth::id()) {
+                    $list->users()->detach($oldId);
+                }
+            }
+
+            foreach ($request->input('userIds') as $newId) {
+                if (!in_array($newId, $oldIds)) {
+                    $list->users()->attach($newId);
+                }
+            }
+        }
+
+        $list->save();
+
+        return $this->show($list->id);
     }
 }

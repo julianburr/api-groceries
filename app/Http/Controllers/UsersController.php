@@ -25,7 +25,7 @@ class UsersController extends ApiController
             $user = Auth::guard('web')->user();
             return $this->respondApiToken($user->api_token);
         }
-        return $this->respondInvalidInpit('User not found');
+        return $this->respondInvalidInput('User not found');
     }
 
     public function me()
